@@ -119,8 +119,8 @@ sup { font-size: 0.645em; line-height: 0; }
 
 .subnav {
   /* Full-width sticky bar that floats over the page: the negative margin lets the hero start under it.
-     It's clear over the hero and fades in a frosted-glass backing once the hero has scrolled past (script.js adds
-     .is-frosted). Its tint and label color follow what's behind it (.is-on-light over light sections). It's only a
+     It's clear at the very top of the page and fades in a frosted-glass backing as soon as the page scrolls, at every
+     width (script.js adds .is-frosted). Its tint and label color follow what's behind it (.is-on-light over light sections). It's only a
      label, so it never blocks clicks on what's underneath. */
   position: sticky; top: 0; z-index: 20; margin-bottom: -48px; pointer-events: none;
   display: flex; align-items: center; height: 48px; padding: 0 24px;

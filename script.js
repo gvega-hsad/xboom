@@ -3,7 +3,6 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 // ---------- Sticky "xBoom" label: black over light sections (white product card, cream footer/top bar), white elsewhere ----------
 const subnav = document.querySelector('.subnav');
 const subnavLabel = subnav.querySelector('span');
-const heroEl = document.querySelector('.hero');
 let subnavFrame = 0;
 function updateSubnavColor() {
   subnavFrame = 0;
@@ -11,7 +10,7 @@ function updateSubnavColor() {
   // what's directly behind the label (the bar itself ignores the pointer, so it isn't hit)
   const under = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
   subnav.classList.toggle('is-on-light', !!under?.closest('.headliners, .footer, .gnb, .auracast-band'));
-  subnav.classList.toggle('is-frosted', heroEl.getBoundingClientRect().bottom <= subnav.getBoundingClientRect().bottom);
+  subnav.classList.toggle('is-frosted', window.scrollY > 0); // frosted as soon as the page has scrolled, at every width
 }
 const requestSubnavColor = () => { if (!subnavFrame) subnavFrame = requestAnimationFrame(updateSubnavColor); };
 window.addEventListener('scroll', requestSubnavColor, { passive: true });
