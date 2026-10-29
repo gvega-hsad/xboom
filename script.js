@@ -111,20 +111,38 @@ const videoModal = document.querySelector('.video-modal');
 const video = videoModal.querySelector('.video-modal__video');
 if (video.dataset.src) video.src = video.dataset.src;
 
+// While a popup (video or photo lightbox) is open the page behind it is frozen where it was: the body is pinned
+// in place at its current scroll offset (overflow: hidden alone doesn't stop iOS scrolling, and can send the
+// page back to the top), then put back at exactly that offset when the popup closes.
+let lockedScrollY = 0;
+function lockPage() {
+  lockedScrollY = window.scrollY;
+  Object.assign(document.body.style, { position: 'fixed', top: `${-lockedScrollY}px`, left: '0', right: '0' });
+  document.body.classList.add('has-modal');
+}
+function unlockPage() {
+  if (document.body.style.position !== 'fixed') return; // already released (close paths call this directly and via the close event)
+  Object.assign(document.body.style, { position: '', top: '', left: '', right: '' });
+  document.body.classList.remove('has-modal');
+  window.scrollTo({ top: lockedScrollY, behavior: 'instant' });
+}
+
 // Opened by the hero's Watch video button and by every gallery photo
 document.querySelectorAll('[data-video-open]').forEach((opener) => {
   opener.addEventListener('click', () => {
+    lockPage();
     videoModal.showModal();
-    document.body.classList.add('has-modal');
     if (video.src) video.play().catch(() => {});
   });
 });
-videoModal.querySelector('[data-video-close]').addEventListener('click', () => videoModal.close());
+const closeVideo = () => { videoModal.close(); unlockPage(); };
+videoModal.querySelector('[data-video-close]').addEventListener('click', closeVideo);
 videoModal.addEventListener('click', (e) => { // click on the backdrop
-  if (e.target === videoModal) videoModal.close();
+  if (e.target === videoModal) closeVideo();
 });
+videoModal.addEventListener('cancel', (e) => { e.preventDefault(); closeVideo(); }); // Esc
 videoModal.addEventListener('close', () => {
-  document.body.classList.remove('has-modal');
+  unlockPage();
   video.pause();
 });
 
@@ -338,7 +356,7 @@ async function zoomIntoLightbox(photo, i) {
 let lightboxClosing = false;
 async function closeLightbox() {
   if (!lightbox.open || lightboxClosing) return;
-  if (reduceMotion.matches) { lightbox.close(); return; }
+  if (reduceMotion.matches) { lightbox.close(); unlockPage(); return; }
   lightboxClosing = true;
   const i = lightboxIndex();
   const photo = galleryPhotos[i];
@@ -356,6 +374,7 @@ async function closeLightbox() {
   const backdropFade = lightbox.animate({ opacity: [1, 0] }, { duration: 400, easing: 'ease', fill: 'forwards', pseudoElement: '::backdrop' });
   const fly = await flyPhoto(target.currentSrc || target.src, frameOf(photo), big, false);
   lightbox.close();
+  unlockPage();
   backdropFade.cancel();
   target.style.visibility = '';
   fly.remove();
@@ -363,8 +382,8 @@ async function closeLightbox() {
   lightboxClosing = false;
 }
 function openLightbox(i) {
+  lockPage();
   lightbox.showModal();
-  document.body.classList.add('has-modal');
   goToSlide(i, 'instant');
   updateLightbox();
 }
@@ -387,7 +406,7 @@ lightbox.addEventListener('click', (e) => { // click on the dark area around the
 });
 lightboxTrack.addEventListener('scroll', () => requestAnimationFrame(updateLightbox), { passive: true });
 lightbox.addEventListener('close', () => {
-  document.body.classList.remove('has-modal');
+  unlockPage();
   lightbox.classList.remove('is-zooming');
 });
 window.addEventListener('resize', () => { if (lightbox.open) goToSlide(lightboxIndex(), 'instant'); });
