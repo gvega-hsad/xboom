@@ -1,0 +1,1053 @@
+/* xboom by will.i.am landing page
+   Built from Figma "XBOOM Landing Page Wireframes" > exploration (node 50:2110), 1600px desktop frame.
+   LG EI is LG's licensed brand face, served from assets/fonts (Latin subsets of font/LG EI Font/TTF). */
+
+/* Weights match the CSS weights used below, not the files' own weight classes
+   (the Headline files number Semibold as 700). */
+@font-face { font-family: "LG EI Text"; src: url("assets/fonts/lg-ei-text-regular.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "LG EI Text"; src: url("assets/fonts/lg-ei-text-semibold.woff") format("woff"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "LG EI Text"; src: url("assets/fonts/lg-ei-text-bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "LG EI Headline"; src: url("assets/fonts/lg-ei-headline-semibold.woff") format("woff"); font-weight: 550; font-style: normal; font-display: swap; }
+
+:root {
+  /* Color tokens (Figma variables) */
+  --primary-main: #ea1917;
+  --primary-contrast: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --grey-200: #f0ece4;
+  --grey-300: #e6e1d6;
+  --grey-500: #646464;
+  --grey-700: #333333;
+  --grey-900: #1a1a1a;
+  --secondary-main: #1b1a1e;
+  --outlined-border: #cbc8c2;
+  --action-disabled: #b1b1b1;
+
+  --font-text: "LG EI Text", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-headline: "LG EI Headline", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-button: "LG Smart", "LG EI Text", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --content: 1236px;
+  --gutter: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #000;
+  color: var(--text-primary);
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.38;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+sup { font-size: 0.645em; line-height: 0; }
+:focus-visible { outline: 2px solid var(--primary-main); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Type scale ---------- */
+.t3 { font: 550 40px/1.08 var(--font-headline); letter-spacing: -0.01em; }
+.t4 { font: 550 32px/1.12 var(--font-headline); letter-spacing: -0.01em; }
+.t5 { font: 550 30px/1.12 var(--font-headline); letter-spacing: -0.01em; }
+.subtitle2 { font: 600 24px/1.13 var(--font-text); letter-spacing: -0.02em; }
+.subtitle3 { font: 600 20px/1.16 var(--font-text); letter-spacing: -0.02em; }
+.body2 { font: 400 16px/1.38 var(--font-text); }
+.body3 { font: 400 14px/1.38 var(--font-text); }
+.caption { font: 400 12px/1.22 var(--font-text); }
+.overline { font: 600 12px/1.12 var(--font-text); letter-spacing: 0.01em; text-transform: uppercase; }
+.overline--regular { font-weight: 400; }
+.overline--muted { color: var(--grey-500); }
+.text-secondary { color: var(--text-secondary); }
+
+/* ---------- Buttons ---------- */
+.btn-red {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 64px; height: 40px; padding: 0 16px;
+  border-radius: 32px; background: var(--primary-main); color: var(--primary-contrast);
+  font: 600 16px/1.2 var(--font-text); text-decoration: none; white-space: nowrap;
+  transition: background-color .15s ease;
+}
+.btn-red:hover { background: #c81412; }
+
+.btn-sm {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px 7px; border-radius: 34px;
+  font: 700 14px/1.714 var(--font-button); letter-spacing: 0.05em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
+}
+.btn-sm--dark { background: var(--secondary-main); color: #fff; border-radius: 20px; }
+.btn-sm--light { background: #fff; color: var(--secondary-main); border: 1px solid rgba(27, 26, 30, 0.5); }
+.btn-sm__icon {
+  width: 18px; height: 18px; margin: -1px 0 0 -2px;
+  background: url("assets/hero/play-circle.svg") center / 18px 18px no-repeat;
+}
+
+.icon-btn { display: inline-flex; padding: 4px; border-radius: 48px; }
+.icon-btn:hover { background: rgba(0, 0, 0, 0.06); }
+
+/* ---------- Global nav ---------- */
+.gnb {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 70px; padding: 18px 0 18px 24px;
+  background: var(--grey-200); border-bottom: 1px solid var(--outlined-border);
+}
+.gnb__left { display: flex; align-items: center; gap: 40px; height: 100%; }
+.gnb__logo img { width: 67.574px; height: 30px; }
+.gnb__nav { display: flex; align-items: center; }
+.gnb__link {
+  display: inline-flex; align-items: center; padding: 8px 16px;
+  font: 600 18px/1.16 var(--font-text); letter-spacing: -0.02em; color: #000; text-decoration: none;
+}
+.gnb__link--menu { padding-right: 12px; }
+.gnb__link + .gnb__link { padding-left: 8px; }
+.gnb__link + .gnb__link + .gnb__link { padding-left: 16px; }
+.gnb__right { display: flex; align-items: center; gap: 24px; padding: 0 24px; }
+.gnb__zip { display: flex; align-items: center; gap: 8px; text-decoration: none; font: 400 16px/1.38 var(--font-text); }
+.gnb__zip span { border-bottom: 1px solid #000; line-height: 1.25; }
+.gnb__icons { display: flex; align-items: center; gap: 16px; padding-bottom: 2px; }
+
+.subnav {
+  /* Full-width sticky bar that floats over the page: the negative margin lets the hero start under it.
+     It's clear over the hero and fades in a frosted-glass backing once the hero has scrolled past (script.js adds
+     .is-frosted). Its tint and label color follow what's behind it (.is-on-light over light sections). It's only a
+     label, so it never blocks clicks on what's underneath. */
+  position: sticky; top: 0; z-index: 20; margin-bottom: -48px; pointer-events: none;
+  display: flex; align-items: center; height: 48px; padding: 0 24px;
+  font: 600 20px/1.16 var(--font-text); letter-spacing: -0.02em; color: #fff;
+  transition: color .3s ease;
+}
+.subnav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0;
+  background: rgba(0, 0, 0, .2);
+  -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+  transition: opacity .3s ease, background-color .3s ease;
+}
+.subnav.is-frosted::before { opacity: 1; }
+.subnav.is-on-light { color: #000; }
+.subnav.is-on-light::before { background: rgba(255, 255, 255, .45); }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; overflow: hidden; background: #000; }
+.hero__bg {
+  position: absolute; inset: 0 0 auto; height: 734px;
+  overflow: hidden; /* clip the logo bars to the red */
+  background: linear-gradient(154.14deg, #e63030 14.9%, #ea6463 53.7%, #ec7f7d 71.6%);
+}
+.hero__stage {
+  position: relative; max-width: 1600px; height: 800px; margin: 0 auto;
+  /* Fluid side-by-side layout (>1000px). 100cqw = stage width (max 1600px), resolved where these are used.
+     Text padding eases 155px -> 32px and the gap 89px -> 40px between 1600px and 1000px; the portrait
+     takes the rest, sized 15% larger than a plain fit, so the shoulder bleeds off the right edge on
+     narrower screens. Matches the Figma exactly at 1600px. */
+  container-type: inline-size;
+  --copy-left: clamp(32px, calc(32px + (100cqw - 1000px) * 0.2055), 155.33px);
+  /* Size reference: the portrait is sized to fit beside the copy with a 40px -> 89px gap... */
+  --fit-left: calc(var(--copy-left) + 370px + clamp(40px, calc(40px + (100cqw - 1000px) * 0.0817), 88.67px));
+  --photo-w: min(923px, calc((100cqw - var(--fit-left)) / 0.85 * 1.15)); /* +15% over the fit size; reaches full size by ~1280px */
+  /* ...then placed closer to the copy: at <=1012px the image box tucks 28px under the text column (its left
+     edge is transparent), leaving ~10px of visible space before the hand; eases back to 89px at 1600px */
+  --copy-gap: clamp(-28px, calc(-28px + (100cqw - 1012px) * 0.1984), 88.67px);
+  --person-left: calc(var(--copy-left) + 370px + var(--copy-gap));
+  /* Copy offset from the top of the red: 87px at <=1012px (half the design's 174px), easing back to 174px at 1600px */
+  --copy-top: clamp(87px, calc(87px + (100cqw - 1012px) * 0.148), 174px);
+}
+/* Bars stay large enough to read as texture: 100% of the design size at >=1600px,
+   easing linearly down to 90% at 375px (1787px wide); narrower screens crop in from both sides */
+.hero__wave {
+  --wave-w: clamp(1787.15px, calc(1787.15px + (100vw - 375px) * 0.1621), 1985.72px);
+  /* the logo point at 24.78% of its width (x=492) sits at screen center, as on the 1600px design (left 308px) */
+  position: absolute; left: calc(50% - var(--wave-w) * 0.2478); top: calc(var(--wave-w) * 0.01561);
+  width: var(--wave-w); height: auto; aspect-ratio: 1985.72 / 664; max-width: none; pointer-events: none;
+}
+/* will.i.am group: photo cropped at the gradient edge, the strap/cord continues below via a mask */
+/* Portrait sized by width; its layers use cqw of this 1094px design box so they scale together.
+   The photo's bottom (719 of 783 design px) stays on the gradient edge at 734px. */
+.hero__person {
+  position: absolute; left: var(--person-left); top: calc(734px - var(--photo-w) * 719 / 923);
+  width: calc(var(--photo-w) * 1094 / 923); aspect-ratio: 1094 / 783;
+  container-type: inline-size; pointer-events: none;
+}
+.hero__photo { position: absolute; left: 0; top: 0; width: 84.369cqw; height: 65.722cqw; overflow: hidden; }
+.hero__photo img { position: absolute; left: 0.03%; top: -0.06%; width: 99.95%; height: 217.39%; max-width: none; }
+.hero__cord {
+  position: absolute; left: 0.021cqw; top: 0; width: 84.534cqw; height: 142.789cqw;
+  -webkit-mask: url("assets/hero/cord-mask.svg") 1.871cqw 35.124cqw / 41.490cqw 36.412cqw no-repeat;
+  mask: url("assets/hero/cord-mask.svg") 1.871cqw 35.124cqw / 41.490cqw 36.412cqw no-repeat;
+}
+.hero__cord img { width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.hero__glow { position: absolute; left: 49.086cqw; top: 33.455cqw; width: 60.055cqw; height: 36.563cqw; max-width: none; }
+.hero__copy {
+  position: absolute; left: var(--copy-left); top: var(--copy-top); width: 370px;
+  display: flex; flex-direction: column; gap: 24px; color: #fff;
+}
+.hero__title { font: 550 56px/1.04 var(--font-headline); letter-spacing: -0.01em; margin-bottom: -8px; }
+.hero__body { font: 400 16px/1.38 var(--font-text); }
+.hero__actions { display: flex; gap: 16px; }
+.hero__lockup {
+  /* Pinned to the bottom-right corner of the red at every breakpoint (bottom = 800px stage - 734px gradient).
+     Colors swap via --lockup-color; script.js adds .is-over-photo when the lockup overlaps the jacket. */
+  --lockup-color: #264e13;
+  position: absolute; right: 0; bottom: 66px; z-index: 1; padding: 24px; width: 252px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.hero__lockup-mark,
+.hero__lockup-tagline {
+  display: block; width: 100%; background-color: var(--lockup-color);
+  -webkit-mask: var(--src) center / 100% 100% no-repeat; mask: var(--src) center / 100% 100% no-repeat;
+  transition: background-color .45s ease;
+}
+/* Over the dark jacket the lockup turns the brand green's complement (hue 281° vs 101°) at 95% lightness.
+   The switch happens exactly at the jacket's edge: ::after is a #F7E5FF copy of each piece, masked by the
+   photo's own alpha (positioned by script.js via --photo-*), so green only ever sits on red (3.6:1 at the
+   corner) and the tint only ever sits on the jacket (4.4–8.6:1 measured at 375–1600px). */
+.hero__lockup-mark,
+.hero__lockup-tagline { position: relative; }
+.hero__lockup-mark::after,
+.hero__lockup-tagline::after {
+  content: ""; position: absolute; inset: 0; background: #f7e5ff; opacity: 0;
+  -webkit-mask: url("assets/hero/william.png") var(--photo-x, 0) var(--photo-y, 0) / var(--photo-w, 0) var(--photo-h, 0) no-repeat;
+  mask: url("assets/hero/william.png") var(--photo-x, 0) var(--photo-y, 0) / var(--photo-w, 0) var(--photo-h, 0) no-repeat;
+  transition: opacity .45s ease;
+}
+.hero__lockup.is-aligned .hero__lockup-mark::after,
+.hero__lockup.is-aligned .hero__lockup-tagline::after { opacity: 1; }
+.hero__lockup-mark { --src: url("assets/hero/william-logo.svg"); aspect-ratio: 203.99 / 68.212; }
+.hero__lockup-tagline { --src: url("assets/hero/tagline.svg"); aspect-ratio: 203.915 / 21.313; }
+
+/* ---------- Gallery ---------- */
+.gallery { overflow: hidden; padding-top: 2px; } /* + the row's 40px drift room = the design's 40px + 2px */
+.gallery {
+  /* Side margins of the side-by-side layout (>=927px): ease 155px -> 32px (1600px -> 1000px) like the
+     hero's text margin; wider than 1600px they grow so the 1600px frame stays centered.
+     (% resolves against the full-width inner/row where these are used.) */
+  --gl: max(clamp(32px, calc(32px + (100vw - 1000px) * 0.2055), 155px), calc(50% - 645px));
+  --gr: var(--gl);
+}
+/* The copy is pinned to the right; the photos scroll sideways beneath it. Scrolled to the end (the
+   default), the last photo sits exactly where the 1600px design has it relative to the copy:
+   its left edge 1px left of the copy, so the row ends 163.76px (370 - 207.24 + 1) inside the copy's right edge. */
+.gallery__inner { position: relative; }
+.gallery__row {
+  display: flex; align-items: flex-end; gap: 24px;
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+  /* 40px of vertical room so drifting photos aren't clipped by the scroller */
+  /* Left padding fills the leftover width: when all five photos fit (1374.22px of photos + gaps) the row is
+     exactly full width, so there's nothing to scroll; narrower, it scrolls and the first photo starts at the
+     screen edge (the design crops it there). (% = the row's full-width container.) */
+  padding: 40px calc(var(--gr) + 163.76px) 40px max(0px, calc(100% - 1374.22px - var(--gr) - 163.76px - 0.5px));
+  margin: 0 0 -40px;
+}
+.gallery__row::-webkit-scrollbar { display: none; }
+.gallery__row.is-dragging { cursor: grabbing; user-select: none; }
+.gallery__row.is-dragging .gallery__img { cursor: grabbing; }
+.gallery__img { --r: 13.274px; transform-origin: 0 100%; position: relative; display: block; flex-shrink: 0; overflow: hidden; border-radius: var(--r); cursor: pointer; }
+.gallery__img img { position: absolute; max-width: none; transform-origin: 50% 100%; }
+.gallery__img--circle { --r: 332.861px; width: 282.257px; height: 294.064px; }
+.gallery__img--circle img { left: -27.1%; top: 0; width: 156.2%; height: 100%; }
+.gallery__img--tall { width: 207.821px; height: 376.65px; }
+.gallery__img--tall img { left: -48.07%; top: -15.53%; width: 323.62%; height: 133.92%; }
+.gallery__img--grey { width: 208.236px; height: 251.376px; }
+.gallery__img--grey img,
+.gallery__img--jump img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gallery__img--jump { width: 371.672px; height: 373.746px; }
+.gallery__img--blue { width: 208.236px; height: 207.406px; }
+.gallery__img--blue img { left: 0; top: 0; width: 100%; height: 150.4%; }
+.gallery__copy {
+  position: absolute; right: var(--gr); top: 40px; width: 370px; z-index: 1; /* matches the design: copy top sits 169px above the last photo */
+  display: flex; flex-direction: column; gap: 16px; color: var(--grey-300);
+}
+
+/* ---------- Reviews ---------- */
+/* Consumer reviews (Figma "consumer reviews"): three 412px cards centered in a row. When they don't fit,
+   the row scrolls (snapping card by card) and the stepper below appears. */
+.reviews { --rv-pad: 16px; max-width: 1600px; margin: 0 auto; padding: 70px 0; }
+.reviews__viewport {
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+  scroll-snap-type: x mandatory; scroll-padding: 0 var(--rv-pad); scroll-behavior: smooth;
+}
+.reviews__viewport::-webkit-scrollbar { display: none; }
+.reviews__track { display: flex; justify-content: safe center; gap: 24px; width: max-content; min-width: 100%; padding: 0 var(--rv-pad); }
+.review-card {
+  /* --card-w: set by script.js when the row overflows, so whole cards fill the width and the next one peeks */
+  flex: 0 0 var(--card-w, 412px); scroll-snap-align: start;
+  display: flex; flex-direction: column; gap: 12px; padding: 24px;
+  background: var(--grey-700); border-radius: 24px; color: #fff; text-decoration: none;
+}
+.review-card:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.review-card__body { font: 400 16px/1.38 var(--font-text); }
+/* Bottom row: "Read more" on the left, stars on the right, centered on each other */
+.review-card__footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: auto; }
+.review-card__cta { font: 600 16px/1.38 var(--font-text); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+/* Star rating, bottom right: five outline stars with the filled stars clipped to --rating (halves included) */
+.stars {
+  position: relative; flex: none; width: 120px; height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='m22 9.24-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z'/%3E%3C/svg%3E") 0 0 / 24px 24px repeat-x;
+}
+.stars::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--rating) * 24px);
+  background: var(--grey-700) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E") 0 0 / 24px 24px repeat-x;
+}
+
+/* ---------- Featured headliners ---------- */
+.headliners-wrap { padding: 0 var(--gutter) 100px; }
+.headliners {
+  position: relative; max-width: 1416px; margin: 0 auto;
+  overflow: clip; /* clips to the rounded corners without becoming a scroll container, so nothing inside spills past them */
+  background: #fff; border-radius: 64px;
+}
+.headliners__intro {
+  display: flex; flex-direction: column; gap: 16px; text-align: center;
+  padding: 80px 276px 36px;
+}
+
+.filters {
+  /* Sticky, so the browser carries them up into the xBoom bar and pins them there; script.js only shrinks
+     them as they arrive. They sit above the bar's glass (z-index 20) */
+  position: sticky; top: 7px; z-index: 21; /* 7px = (48px bar - 34px docked buttons) / 2 */
+  display: flex; justify-content: center; gap: 16px; padding: 0 32px 24px;
+}
+.filters.is-merging { will-change: transform; }
+.filters__btn {
+  flex: none; height: 56px; padding: 0 32px; border: 1px solid var(--grey-500); border-radius: 16px;
+  background: #fff; font: 600 20px/1.2 var(--font-text); color: var(--grey-700); white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.filters__btn[aria-pressed="true"] {
+  background: var(--grey-500); border-color: var(--grey-500); color: #fff;
+  box-shadow: inset 4px 4px 7px rgba(0, 0, 0, .25);
+}
+
+.carousel { padding-bottom: 40px; }
+.carousel__viewport {
+  overflow-x: auto; padding: 0 58px; scroll-padding: 0 58px;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.carousel__viewport::-webkit-scrollbar { display: none; }
+.carousel__track {
+  --gap: 48px; /* 24px each side of the divider */
+  display: flex; align-items: flex-start; gap: var(--gap);
+  /* safe center: a row that fits (Earbuds' single card) is centered; one that overflows starts at card one */
+  width: max-content; min-width: 100%; justify-content: safe center;
+}
+.product-card {
+  /* --card-w: set by script.js when the row overflows, so whole cards fill the width and the next one peeks */
+  position: relative; flex: 0 0 var(--card-w, 364px); min-width: 0; scroll-snap-align: start;
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 0 24px 0; background: #fff; border-radius: 32px;
+}
+.product-card[hidden] { display: none; }
+/* Divider in the middle of the 48px gap before every visible card except the first: 560px tall, 64px down */
+.product-card:not([hidden]) ~ .product-card:not([hidden])::before {
+  content: ""; position: absolute; left: calc(var(--gap) / -2 - .5px); top: 64px; width: 1px; height: 560px; background: #e6e1d6;
+}
+.product-card__media { width: 100%; max-width: 316px; aspect-ratio: 1; border-radius: 32px; overflow: hidden; }
+.product-card__media > img { width: 100%; height: 100%; }
+/* Earbuds on its own: one wide card, media beside the copy (Figma filter=earbuds) */
+.carousel[data-filter="earbuds"] .product-card { flex-basis: 696px; flex-direction: row; align-items: center; }
+.carousel[data-filter="earbuds"] .product-card__content { flex: 0 0 316px; }
+.carousel[data-filter="earbuds"] .product-card__media { flex: 0 0 316px; }
+.carousel[data-filter="earbuds"] .product-card__content > .product-card__text:first-child { margin-top: 0; }
+@media (max-width: 800px) { /* too narrow for side by side: back to the standard card */
+  .carousel[data-filter="earbuds"] .product-card { flex-basis: min(364px, calc(100vw - 64px)); flex-direction: column; align-items: stretch; }
+  .carousel[data-filter="earbuds"] .product-card__content,
+  .carousel[data-filter="earbuds"] .product-card__media { flex: none; }
+  .carousel[data-filter="earbuds"] .product-card__content > .product-card__text:first-child { margin-top: 64px; }
+}
+/* Fade the cards in when the filter changes */
+.carousel__track.is-switching { opacity: 0; }
+.js .carousel__track { transition: opacity .3s ease; }
+.product-video { display: block; width: 100%; height: 100%; object-fit: contain; background: transparent; }
+.product-card__content { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.product-card__text { display: flex; flex-direction: column; gap: 16px; }
+.product-card__content .btn-red { margin-top: 4px; }
+
+.swatches { display: flex; align-items: center; gap: 10.444px; }
+/* Every card reserves the same 44px selector row (tall enough for the model chips), so the eyebrow
+   below it sits at the same height on every card, with or without swatches/chips */
+.swatches, .series { height: 44px; }
+.product-card__content > .product-card__text:first-child { margin-top: 64px; } /* 44px row + 20px gap */
+.swatch {
+  width: 31.778px; height: 31.778px; border-radius: 32px; background: var(--swatch);
+  box-shadow: inset 0 0 0 0 #7a7a7a; transition: box-shadow .15s ease;
+}
+.swatch[aria-checked="true"] { box-shadow: inset 0 0 0 3.264px #7a7a7a; }
+
+.series { display: flex; align-items: center; gap: 16px; }
+.series__chip {
+  padding: 10px 12px; border: 1px solid #000; border-radius: 12px;
+  font: 600 16px/1.2 var(--font-text); color: #000;
+}
+.series__chip[aria-checked="true"] { background: var(--grey-700); border: 3px solid var(--grey-500); padding: 8px 10px; color: #fff; }
+
+/* Grab + Bounce renders rebuilt from their Figma layers (353px artboard) */
+.product-art { position: relative; overflow: hidden; }
+.product-art img { position: absolute; max-width: none; }
+/* Figma mask group clips the Grab art to a 290px square at (31, 46); children use offsets inside it */
+.product-art__clip { position: absolute; left: 31px; top: 46px; width: 290px; height: 290px; overflow: hidden; }
+.product-art--grab .product-art__bg { left: 9px; top: 0; width: 271px; height: 271px; border-radius: 50%; object-fit: cover; }
+.product-art--grab .product-art__shadow,
+.product-art--grab .product-art__product { object-fit: cover; transform-origin: 0 0; transform: rotate(-68deg); }
+.product-art--grab .product-art__product { left: 13px; top: 263px; width: 337px; height: 183px; }
+.product-art--grab .product-art__shadow { left: 0; top: 315px; width: 429px; height: 241px; opacity: .1; filter: blur(8px); }
+/* Bounce art in % of its 353px artboard, so it scales with the media box */
+.product-art--bounce .product-art__pill {
+  position: absolute; left: 22.38%; top: 13.03%; width: 54.39%; height: 82.15%; border-radius: 26.56% / 17.59%; overflow: hidden;
+  background:
+    radial-gradient(60% 40% at 20% 15%, rgba(120, 8, 43, .6), transparent 70%),
+    radial-gradient(70% 45% at 85% 95%, rgba(253, 49, 46, .7), transparent 70%),
+    radial-gradient(60% 40% at 10% 85%, rgba(43, 35, 156, .35), transparent 70%),
+    radial-gradient(50% 35% at 70% 60%, rgba(255, 201, 195, .35), transparent 70%),
+    #bd3427;
+}
+.product-art--bounce .product-art__shadow { left: 2.27%; top: 35.69%; width: 91.22%; height: 61.19%; opacity: .1; transform: rotate(6deg); }
+.product-art--bounce .product-art__product { left: 18.13%; top: 31.73%; width: 77.9%; height: 60.34%; object-fit: cover; }
+
+.stepper { display: flex; align-items: center; justify-content: center; gap: 8px; height: 56px; padding: 8px; margin-top: 10px; }
+.stepper[hidden] { visibility: hidden; } /* keep the slot, as the design does for Earbuds */
+.stepper__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 64px; height: 40px; padding: 0 16px; border-radius: 32px;
+}
+.stepper__btn span {
+  width: 18px; height: 18px; background: var(--primary-main);
+  -webkit-mask: var(--icon) center / 18px 18px no-repeat; mask: var(--icon) center / 18px 18px no-repeat;
+}
+.stepper__btn:disabled { cursor: default; }
+.stepper__btn:disabled span { background: var(--action-disabled); }
+.stepper__btn--prev span { --icon: url("assets/stepper/arrow-back.svg"); }
+.stepper__btn--next span { --icon: url("assets/stepper/arrow-forward.svg"); }
+.stepper__dots { display: flex; gap: 4px; }
+.stepper__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--action-disabled); }
+.stepper__dot[aria-current="true"] { background: var(--primary-main); }
+
+/* ---------- AI Karaoke breaker (Figma "ai karaoke breaker", 1600 × 333) ----------
+   The photo fills the left 82% (sized by the strip's height, so it keeps its crop as the screen narrows);
+   a dark green gradient takes over from 45% across and is solid from 81%, behind the copy. */
+.karaoke-breaker { position: relative; height: 333px; overflow: hidden; background: #0b1602; color: #fff; }
+.karaoke-breaker__img { position: absolute; left: 0; top: -7.5%; height: 127.9%; width: auto; max-width: none; }
+.karaoke-breaker::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to right, rgba(11, 22, 2, 0) 45%, rgba(11, 22, 2, .62) 56.8%, #0b1602 80.7%);
+}
+.karaoke-breaker__copy {
+  position: absolute; z-index: 1; left: 54%; right: 4%; top: 50%; translate: 0 -50%; max-width: 672px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+/* ---------- Auracast + bundles (Figma "auracast + bundles") ----------
+   One cream band. The speaker lineup video sits on the right (its background is the band's exact cream, so
+   it has no visible edge), the copy top left, the Auracast logo top right. */
+.auracast-band { background: #f0ece4; color: #000; }
+.auracast { position: relative; max-width: 1600px; margin: 0 auto; aspect-ratio: 1600 / 724; overflow: hidden; }
+.auracast__copy {
+  /* Like the hero copy, the top eases with the screen width: the design's 117px at 1600px, rising to 64px by
+     1101px (just above where the band stacks), so the copy always clears the speakers, whose tops rise as
+     the band shrinks */
+  position: absolute; z-index: 1; left: max(32px, 9.69%); width: min(633px, 40%);
+  top: clamp(64px, calc(64px + (100vw - 1101px) * 0.1062), 117px);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.auracast__copy .body3 { color: var(--grey-700); }
+.auracast__lineup {
+  position: absolute; left: 24.87%; top: -1.08%; width: 75.13%; height: auto;
+  /* The video's floor shading stops at its left edge; fade that edge out into the band */
+  -webkit-mask: linear-gradient(to right, transparent, #000 5%); mask: linear-gradient(to right, transparent, #000 5%); /* 60px at 1600, ending just before the first speaker */
+}
+.auracast__logo { position: absolute; z-index: 1; left: 86.07%; top: 6.66%; width: 10.63%; height: auto; }
+
+/* ---------- Bundles (Figma exploration 02) ---------- */
+.bundles { --bd-pad: 16px; max-width: 1600px; margin: 0 auto; padding: 0 0 100px; } /* cards start right where the lineup ends */
+.bundles__viewport {
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+  scroll-snap-type: x mandatory; scroll-padding: 0 var(--bd-pad); scroll-behavior: smooth;
+}
+.bundles__viewport::-webkit-scrollbar { display: none; }
+.bundles__track { display: flex; justify-content: safe center; gap: 24px; width: max-content; min-width: 100%; padding: 0 var(--bd-pad); }
+.bundle-card {
+  /* --card-w: set by script.js when the row overflows, so whole cards fill the width and the next one peeks */
+  flex: 0 0 var(--card-w, 400px); min-width: 0; scroll-snap-align: start;
+  display: flex; flex-direction: column; padding: 8px; background: #fff; border-radius: 24px; color: #000;
+}
+.bundle-card__media { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 16px; }
+.bundle-card__body { display: flex; flex-direction: column; padding: 8px; } /* text sits 16px in from the card edge, 16px under the photo */
+.bundle-card__title { margin-top: 8px; font: 600 20px/1.16 var(--font-text); letter-spacing: -0.02em; }
+.bundle-card__body .body3 { margin-top: 16px; }
+.bundle-card__price { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.bundle-card__now { font: 600 28px/1.1 var(--font-text); letter-spacing: -0.02em; }
+.bundle-card__deal { display: flex; flex-direction: column; }
+.bundle-card__save { font: 600 12px/1.22 var(--font-text); color: var(--primary-main); }
+.bundle-card__was { font: 400 12px/1.12 var(--font-text); color: var(--grey-700); }
+.bundle-card__cta { width: 100%; margin-top: 16px; }
+.bundles .stepper { margin-top: 16px; }
+.bundles .stepper[hidden] { display: none; }
+
+/* ---------- FYI RAiDiO ---------- */
+.radio-band { background: rgba(255, 255, 255, .1); } /* stays put while the section inside fades */
+.radio { max-width: calc(var(--content) + 300px); margin: 0 auto; padding: 100px 150px; color: #fff; }
+.radio__intro { display: flex; flex-direction: column; gap: 16px; padding: 0 126px; text-align: center; margin-bottom: 50px; }
+.radio__grid { display: grid; grid-template-columns: repeat(3, 396px); gap: 24px; }
+.radio-card { display: flex; flex-direction: column; }
+.radio-card__media { width: 396px; aspect-ratio: 1; border-radius: 32px; overflow: hidden; margin-bottom: 30px; }
+.radio-card__media :is(img, video) { width: 100%; height: 100%; object-fit: cover; }
+.radio-card h3 { margin-bottom: 16px; }
+
+/* ---------- FAQs ---------- */
+.faqs {
+  display: flex; flex-direction: column; gap: 40px;
+  max-width: calc(var(--content) + 300px); margin: 0 auto; padding: 100px 150px; color: #fff;
+}
+.faqs__list { display: flex; flex-direction: column; gap: 16px; }
+.accordion { background: var(--grey-900); border-radius: 16px; transition: background-color .25s ease; }
+.accordion__summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 16px; min-height: 67px; list-style: none; cursor: pointer;
+  font: 600 20px/1.16 var(--font-text); letter-spacing: -0.02em;
+}
+.accordion__summary::-webkit-details-marker { display: none; }
+.accordion__summary > span:first-child { padding: 22px 0; }
+.accordion__icon {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: 48px;
+  background: url("assets/faq/expand-more.svg") center / 24px 24px no-repeat;
+  transition: transform .2s ease;
+}
+html:not(.js) .accordion[open] .accordion__icon,
+.accordion.is-open .accordion__icon { transform: rotate(180deg); } /* .is-open flips the chevron as the animation starts */
+.accordion__details { padding: 8px 16px 16px; font: 400 16px/1.38 var(--font-text); overflow: hidden; }
+
+/* ---------- Sign-up ---------- */
+.signup { max-width: 1600px; margin: 0 auto; padding: 100px 130px; }
+.signup__card {
+  position: relative; padding: 40px; background: var(--grey-700); border-radius: 32px; color: #fff;
+}
+.signup__form { display: flex; flex-direction: column; gap: 16px; }
+.signup__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+
+/* Floating labels: the label sits in the field like a placeholder, then shrinks to the top edge when
+   the field is focused or filled (placeholder=" " lets :placeholder-shown detect "empty") */
+.field { position: relative; }
+.field input {
+  width: 100%; height: 56px; padding: 24px 12px 6px;
+  background: #fff; border: 1px solid var(--outlined-border); border-radius: 4px;
+  font: 400 16px/1.38 var(--font-text); color: #000;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.field label {
+  position: absolute; left: 13px; top: 28px; translate: 0 -50%; pointer-events: none;
+  font: 400 16px/1.2 var(--font-text); color: var(--text-secondary); transform-origin: 0 50%;
+  transition: top .2s cubic-bezier(.4, 0, .2, 1), scale .2s cubic-bezier(.4, 0, .2, 1), color .2s ease;
+}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label { top: 15px; scale: .75; color: #646464; }
+.field input:focus { outline: none; border-color: var(--text-secondary); box-shadow: 0 0 0 1px var(--text-secondary); } /* neutral: red is reserved for failed sign-ups */
+
+/* Validation runs on Sign Up. Only a required field left empty gets the red outline; format problems
+   (email, phone) show just the message. Messages are a light red that passes on #333 (5.55:1). */
+.field input[data-error="empty"] { border-color: var(--primary-main); box-shadow: 0 0 0 1px var(--primary-main); }
+.field__error {
+  max-height: 0; overflow: hidden; margin: 0; color: #ff8a85; opacity: 0;
+  transition: max-height .25s ease, opacity .25s ease, margin-top .25s ease;
+}
+.field__error.is-shown { max-height: 40px; margin-top: 6px; opacity: 1; }
+/* Filled-out check: a white check in a green circle at the field's right edge once the field is validly
+   filled (script.js toggles .is-valid). #1E8E3E is 4.21:1 against the white field and the white check. */
+.field input { padding-right: 48px; }
+.field__valid {
+  position: absolute; right: 14px; top: 28px; width: 22px; height: 22px; translate: 0 -50%;
+  border-radius: 50%; pointer-events: none; opacity: 0; scale: .5;
+  background: #1e8e3e url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center / 15px 15px no-repeat;
+  transition: opacity .18s ease, scale .25s cubic-bezier(.34, 1.4, .64, 1);
+}
+.field.is-valid .field__valid { opacity: 1; scale: 1; }
+
+.signup__legal { display: flex; flex-direction: column; gap: 16px; }
+.signup__legal a { color: inherit; }
+.checkbox { position: relative; display: flex; align-items: flex-start; gap: 4px; cursor: pointer; }
+.checkbox--center { align-items: center; }
+.checkbox input { position: absolute; opacity: 0; width: 42px; height: 42px; margin: 0; cursor: pointer; }
+.checkbox__box {
+  position: relative; flex-shrink: 0; width: 42px; height: 42px; border-radius: 21px;
+  background: url("assets/form/checkbox.svg") center / 24px 24px no-repeat;
+}
+/* Checked state eases in (scale + fade) over the empty box instead of snapping */
+.checkbox__box::after {
+  content: ""; position: absolute; inset: 0; opacity: 0; scale: .6;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  transition: opacity .18s ease, scale .22s cubic-bezier(.34, 1.4, .64, 1);
+}
+.checkbox input:checked + .checkbox__box::after { opacity: 1; scale: 1; }
+.checkbox input:focus-visible + .checkbox__box { outline: 2px solid #fff; outline-offset: -6px; }
+.checkbox .caption { padding-top: 0; }
+.checkbox:not(.checkbox--center) .caption { padding-top: 9px; }
+
+/* Submit: loading state (spinner + label), then the form crossfades to the success message */
+.signup__submit { gap: 8px; min-width: 104px; }
+.signup__spinner {
+  display: none; width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .35); border-top-color: #fff; animation: spin .8s linear infinite;
+}
+.signup__submit.is-loading { cursor: progress; }
+.signup__submit.is-loading .signup__spinner { display: block; }
+@keyframes spin { to { rotate: 360deg; } }
+.signup__form, .signup__success { transition: opacity .35s ease; }
+.signup__card.is-sending .signup__form { opacity: 0; }
+.signup__card.is-sending { display: flex; flex-direction: column; justify-content: center; } /* card keeps its height; confirmation centered */
+.signup__success { display: flex; flex-direction: column; gap: 12px; opacity: 0; }
+.signup__form[hidden], .signup__success[hidden] { display: none; } /* the flex rules above would otherwise override [hidden] */
+.signup__success.is-shown { opacity: 1; }
+.signup__success h2:focus { outline: none; }
+
+/* ---------- Footer ---------- */
+.footer {
+  display: flex; flex-direction: column; align-items: center; gap: 80px;
+  padding: 80px var(--gutter); background: var(--grey-200); color: var(--text-secondary);
+}
+.footer__slogan { width: 362px; height: 60px; }
+.disclaimers { width: 100%; max-width: 1290px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 15px; }
+.disclaimers li { display: flex; font: 400 12px/1.22 var(--font-text); }
+.disclaimers__mark { flex: 0 0 14px; font-size: 7.74px; line-height: 1.22; }
+
+/* ---------- Responsive (not specified in the wireframe; sensible stacking) ---------- */
+@media (max-width: 1440px) {
+  .headliners__intro { padding: 80px 120px 36px; }
+  .radio, .faqs { padding-left: 64px; padding-right: 64px; }
+  .radio__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .radio-card__media { width: 100%; }
+  .signup { padding: 100px 64px; }
+}
+
+@media (max-width: 926px) {
+  /* Gallery becomes copy on top + horizontal strip */
+  .gallery { padding: 40px 0 0; }
+  .gallery__inner { display: flex; flex-direction: column-reverse; gap: 32px; }
+  .gallery__copy { position: static; width: auto; max-width: 560px; padding: 0 32px; }
+  .gallery__row { padding: 0 32px; margin: 0; }
+}
+
+@media (max-width: 1024px) {
+  .reviews { padding: 48px 0; }
+  .headliners { border-radius: 40px; }
+  .headliners__intro { padding: 64px 32px 32px; }
+  .filters { justify-content: safe center; overflow-x: auto; scrollbar-width: none; padding: 0 24px 24px; }
+  .series { gap: 8px; }
+  .filters::-webkit-scrollbar { display: none; }
+  .carousel__viewport { padding: 0 24px; scroll-padding: 0 24px; }
+  .radio, .faqs { padding: 64px 32px; }
+  .radio__intro { padding: 0; }
+  .signup { padding: 64px 24px; }
+}
+
+/* Breaker and Auracast band stack when the copy and pictures no longer fit side by side */
+@media (max-width: 1100px) {
+  /* Stacked: copy, then the logo (right-aligned), then the lineup */
+  .auracast { aspect-ratio: auto; padding: 64px 32px 0; overflow: visible; display: flex; flex-direction: column; }
+  .auracast__copy { position: relative; left: auto; top: auto; width: auto; max-width: 633px; }
+  .auracast__lineup { position: relative; left: auto; top: auto; display: block; width: 100%; max-width: 900px; margin: 8px auto 0; }
+  .auracast__logo { position: relative; left: auto; top: auto; order: 1; align-self: flex-end; width: 140px; margin-top: 24px; }
+  .auracast__lineup { order: 2; }
+  .bundles { padding-top: 24px; }
+}
+@media (max-width: 900px) {
+  .karaoke-breaker { height: auto; display: flex; flex-direction: column; }
+  .karaoke-breaker__img {
+    position: relative; top: auto; width: 100%; height: 280px; object-fit: cover; object-position: 30% center;
+    -webkit-mask: linear-gradient(to bottom, #000 55%, transparent); mask: linear-gradient(to bottom, #000 55%, transparent);
+  }
+  .karaoke-breaker::after { content: none; }
+  .karaoke-breaker__copy { position: relative; left: auto; right: auto; top: auto; translate: none; max-width: none; padding: 0 32px 48px; margin-top: -24px; }
+}
+@media (max-width: 640px) {
+  .auracast { padding: 48px 16px 0; }
+  .karaoke-breaker__img { height: 220px; }
+  .karaoke-breaker__copy { padding: 0 16px 40px; }
+}
+
+@media (max-width: 1000px) {
+  .gnb { padding-left: 16px; }
+  .gnb__left { gap: 16px; }
+  .gnb__nav { display: none; }
+  .gnb__right { padding: 0 16px; gap: 16px; }
+
+  .hero { --s: .62; }
+  .hero__bg { height: auto; bottom: calc(64px * var(--s)); } /* the cord's overhang at this scale */
+  .hero__lockup { bottom: calc(64px * var(--s)); } /* stays on the gradient's bottom-right corner */
+  .hero__stage { height: auto; display: flex; flex-direction: column; }
+  .hero__copy { position: relative; left: auto; top: auto; width: auto; padding: 72px 24px 0; z-index: 1; order: -1; max-width: 600px; } /* 48px floating xBoom label + 24px */
+  .hero__title { font-size: 40px; }
+  .hero__person { position: relative; left: 50%; right: auto; top: auto; width: calc(1094px * var(--s)); margin: 16px 0 0 calc(-461px * var(--s)); }
+
+  .signup__fields { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .t3 { font-size: 32px; }
+  .reviews { padding: 40px 0; }
+  .headliners-wrap { padding: 0 16px 64px; }
+  .headliners { border-radius: 32px; }
+  .headliners__intro { padding: 48px 20px 24px; }
+  .filters { gap: 8px; padding: 0 16px 16px; }
+  .filters__btn { height: 44px; padding: 0 18px; font-size: 16px; border-radius: 12px; }
+  .carousel__viewport { padding: 0 16px; scroll-padding: 0 16px; }
+  .product-card { flex-basis: var(--card-w, min(364px, calc(100vw - 64px))); }
+  .carousel__track { --gap: 24px; }
+  .series__chip { padding: 8px 10px; }
+  .series__chip[aria-checked="true"] { padding: 6px 8px; }
+  .product-art { transform-origin: 0 0; }
+  .bundles { padding-bottom: 64px; }
+  .radio, .faqs { padding: 48px 16px; }
+  .accordion__summary { font-size: 17px; }
+  .signup { padding: 48px 16px; }
+  .signup__card { padding: 24px; }
+  .footer { gap: 48px; padding: 56px 16px; }
+  .footer__slogan { width: 240px; height: auto; }
+  .hero { --s: .42; }
+  .hero__lockup { width: 184px; padding: 16px; gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .carousel__viewport { scroll-behavior: auto; }
+}
+
+/* =========================================================
+   Hero motion
+   - Load-in: bars rise like an equalizer, the person fades up first, then the headline fades in
+     word by word, then body, buttons and lockup (full timeline at "Load-in timeline" below).
+   - Idle: bars pulse like a quiet level meter (paused offscreen via .is-offscreen).
+   - Scroll: script.js writes --sp (scroll progress 0..1); bars and copy drift, red fades to black.
+   - The portrait never moves as a whole: its jacket crop must stay on the gradient's bottom
+     edge (only the cord hangs over), so its load-in rises *inside* the crop box.
+   Initial hidden states only apply under html.js, so the page renders fully without JS.
+   ========================================================= */
+html { scroll-behavior: smooth; }
+#headliners { scroll-margin-top: 48px; }
+
+.hero { --sp: 0; --ease-out: cubic-bezier(.16, 1, .3, 1); }
+.hero::after { /* red fades to black as the hero scrolls away */
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: #000; opacity: calc(max(0, var(--sp) - 0.4) * 1.25); /* starts once the CTAs are mostly past */
+}
+.hero__wave { translate: 0 calc(var(--sp) * -140px); }
+.hero__copy { translate: 0 calc(var(--sp) * -50px); opacity: calc(1 - max(0, var(--sp) - 0.25) * 1.6); } /* stays solid for the first quarter of the scroll */
+
+.hero__bar { transform-box: fill-box; transform-origin: 50% 100%; }
+
+/* Load-in timeline (seconds after the photo decodes)
+   0.00  bars rise like an equalizer
+   0.10  person fades and rises in (1.4s), glow 0.50, cord once he lands 1.20
+   0.70  headline: each word fades 0 -> 100% while rising, 120ms apart
+   1.15  body copy, 1.35 buttons (buttons are clickable throughout)
+   1.60  will.i.am lockup */
+.js .hero .hero__bar { animation: bar-rise .9s var(--ease-out) calc(var(--i) * 45ms) both, bar-idle calc(2.6s + var(--i) * 0.23s) ease-in-out calc(1.2s + var(--i) * 0.11s) infinite; }
+.js .hero .hero__photo img { animation: photo-rise 1.4s var(--ease-out) .1s both, fade-in 1.2s ease-in-out .1s both; } /* glide and fade on separate curves */
+.js .hero .hero__glow { animation: fade-in 1.4s ease .5s both; }
+.js .hero .hero__cord { animation: fade-in .6s ease 1.2s both; }
+.js .hero .hero__word { display: inline-block; animation: word-rise 1s var(--ease-out) calc(.7s + var(--w) * 120ms) both; }
+.js .hero .hero__body { animation: fade-up .9s var(--ease-out) 1.15s both; }
+.js .hero .hero__actions { animation: fade-up .9s var(--ease-out) 1.35s both; }
+.js .hero .hero__lockup > * { animation: fade-up 1s var(--ease-out) 1.6s both; }
+.js .hero .hero__lockup > :last-child { animation-delay: 1.75s; }
+/* Hold everything until the photo has decoded so nothing animates in half-loaded */
+.js .hero:not(.is-ready) *,
+.js .hero:not(.is-ready) *::before { animation-play-state: paused !important; }
+.hero.is-offscreen .hero__bar { animation-play-state: paused; }
+
+.hero__title { overflow: hidden; padding-bottom: .08em; } /* clip words as they rise */
+
+@keyframes bar-rise { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+@keyframes bar-idle { 0%, 100% { transform: scaleY(1); } 35% { transform: scaleY(.82); } 70% { transform: scaleY(.94); } }
+@keyframes photo-rise { from { translate: 0 90px; } to { translate: 0 0; } }
+@keyframes word-rise { from { translate: 0 110%; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes fade-up { from { translate: 0 16px; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Hero button hovers */
+.btn-sm { transition: background-color .2s ease, color .2s ease, border-color .2s ease, translate .2s ease; }
+.btn-sm:hover { translate: 0 -1px; }
+.btn-sm--dark:hover { background: #000; }
+.btn-sm--dark:hover .btn-sm__icon { animation: icon-pulse 1s ease-in-out infinite; }
+.btn-sm--light:hover { border-color: var(--secondary-main); }
+@keyframes icon-pulse { 50% { scale: 1.18; } }
+
+/* ---------- Video modal ---------- */
+.video-modal {
+  width: min(1120px, calc(100vw - 32px)); max-width: none; max-height: none;
+  padding: 0; border: 0; background: transparent; overflow: visible;
+}
+.video-modal::backdrop { background: rgba(0, 0, 0, .85); }
+.video-modal[open] { animation: modal-in .35s var(--ease-out, ease) both; }
+.video-modal[open]::backdrop { animation: fade-in .3s ease both; }
+.video-modal__frame { position: relative; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #111; }
+.video-modal__video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; }
+.video-modal__video:not([src]) { display: none; }
+.video-modal__placeholder {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  color: #fff; text-align: center;
+  background: linear-gradient(154.14deg, #e63030 14.9%, #ea6463 53.7%, #ec7f7d 71.6%);
+}
+.video-modal__video[src] + .video-modal__placeholder { display: none; }
+.video-modal__play {
+  width: 72px; height: 72px; margin-bottom: 8px;
+  background: url("assets/hero/play-circle.svg") center / 72px 72px no-repeat;
+}
+.video-modal__close {
+  position: absolute; top: -52px; right: 0; width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255, 255, 255, .12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  transition: background-color .2s ease;
+}
+.video-modal__close:hover { background-color: rgba(255, 255, 255, .24); }
+@keyframes modal-in { from { opacity: 0; scale: .96; } to { opacity: 1; scale: 1; } }
+body.has-modal { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .hero *, .video-modal[open], .video-modal[open]::backdrop { animation: none !important; }
+  .hero__wave, .hero__copy { translate: none; opacity: 1; }
+  .hero::after { display: none; }
+}
+
+/* =========================================================
+   Gallery motion ("Tuned to perfection")
+   - Equalizer reveal: when the section scrolls in, each photo grows up from its bottom edge,
+     left to right (echoing the hero bars), then the copy fades up. Plays once.
+   - Scroll drift (side-by-side layout only): photos drift at different vertical speeds;
+     script.js writes --gp (-1..1, section progress through the viewport).
+   - Hover focus (mouse only): hovered photo zooms inside its frame, the others dim.
+   - Click: opens the photo large in a lightbox, where you can move through all five
+     (arrows, keyboard, swipe or trackpad scroll).
+   - Mobile strip: free horizontal scrolling.
+   ========================================================= */
+.gallery__img:nth-child(1) { --gd: -28px; }
+.gallery__img:nth-child(2) { --gd: 18px; }
+.gallery__img:nth-child(3) { --gd: -14px; }
+.gallery__img:nth-child(4) { --gd: 32px; }
+.gallery__img:nth-child(5) { --gd: -22px; }
+
+/* Reveal: one photo at a time, left to right, 300ms apart. Each photo fades in (1.2s) while its
+   frame opens upward from the lower 35% (1.6s, soft curve) and the image inside settles from 112%
+   to 100% (1.8s). The last photo starts at 1.2s and finishes fading in at 2.4s; only then does the
+   copy follow, like the hero: headline fades in slowly (1.4s), body fades up 0.25s after it.
+   Initial hidden state only with JS, and never with reduced motion. */
+.js .gallery__img {
+  --reveal-ease: cubic-bezier(.22, .9, .24, 1);
+  --reveal-delay: calc(var(--g) * 300ms);
+  clip-path: inset(0 round var(--r));
+  transition: opacity 1.2s ease var(--reveal-delay), clip-path 1.6s var(--reveal-ease) var(--reveal-delay), scale .3s cubic-bezier(.22, .9, .24, 1), left .3s cubic-bezier(.22, .9, .24, 1), transform .6s cubic-bezier(.16, 1, .3, 1);
+}
+.js .gallery__img img {
+  transform: scale(1);
+  transition: transform 1.8s var(--reveal-ease) var(--reveal-delay), scale .6s cubic-bezier(.16, 1, .3, 1), filter .4s ease;
+}
+.js .gallery:not(.is-in) .gallery__img { opacity: 0; clip-path: inset(35% 0 0 0 round var(--r)); }
+.js .gallery:not(.is-in) .gallery__img img { transform: scale(1.12); }
+
+.js .gallery__copy > * { transition: opacity 1.4s ease 2.4s, translate 1.6s cubic-bezier(.22, .9, .24, 1) 2.4s; }
+.js .gallery__copy > p { transition-duration: .9s, .9s; transition-delay: 2.65s, 2.65s; }
+.js .gallery:not(.is-in) .gallery__copy > * { opacity: 0; translate: 0 16px; }
+
+/* Drift: desktop layout only (the mobile strip scrolls sideways and clips vertically) */
+@media (min-width: 927px) {
+  .gallery__img { translate: 0 calc(var(--gd) * var(--gp, 0) * var(--free, 1)); }
+}
+
+/* Hover focus + play badge */
+html:not(.js) .gallery__img img { transition: scale .6s cubic-bezier(.16, 1, .3, 1), filter .4s ease; }
+html:not(.js) .gallery__img { transition: transform .6s cubic-bezier(.16, 1, .3, 1); }
+.gallery__zoom {
+  position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%;
+  background: rgba(27, 26, 30, .55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M21 11V3h-8l3.29 3.29-10 10L3 13v8h8l-3.29-3.29 10-10z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; scale: .8; transition: opacity .3s ease, scale .3s ease; pointer-events: none;
+}
+.gallery__img:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.gallery__img:focus-visible .gallery__zoom { opacity: 1; scale: 1; }
+@media (hover: hover) and (pointer: fine) {
+  /* Hover: the frame grows 5% taller from its bottom edge (same width). The photo inside zooms 5% from the
+     bottom, but only sideways in its own space, so after the frame's stretch it zooms evenly (no distortion)
+     and still fills the taller frame. The play badge undoes the stretch too. */
+  .gallery__img:hover { transform: scaleY(1.05); }
+  .gallery__img:hover img { scale: 1.05 1; }
+  .gallery__img:hover .gallery__zoom { opacity: 1; scale: 1 calc(1 / 1.05); }
+  .gallery__row:has(.gallery__img:hover) .gallery__img:not(:hover) img { filter: brightness(.55) saturate(.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .gallery:not(.is-in) .gallery__img { clip-path: inset(0 round var(--r)); opacity: 1; }
+  .js .gallery:not(.is-in) .gallery__img img { transform: none; }
+  .js .gallery:not(.is-in) .gallery__copy > * { opacity: 1; translate: none; }
+  .gallery__img { translate: none !important; }
+}
+
+/* ---------- Gallery lightbox ---------- */
+.lightbox {
+  width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0;
+  border: 0; background: transparent; color: #fff; overflow: hidden;
+}
+.lightbox::backdrop { background: rgba(0, 0, 0, .92); }
+.lightbox[open] { animation: fade-in .3s ease both; }
+.lightbox[open]::backdrop { animation: fade-in .3s ease both; }
+.lightbox__track {
+  display: flex; width: 100%; height: 100%; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scrollbar-width: none; outline: none;
+}
+.lightbox__track::-webkit-scrollbar { display: none; }
+.lightbox__slide {
+  flex: 0 0 100%; height: 100%; scroll-snap-align: center; scroll-snap-stop: always;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  padding: 72px 96px 48px; margin: 0;
+}
+.lightbox__slide img {
+  max-width: 100%; max-height: calc(100% - 48px); width: auto; height: auto;
+  object-fit: contain; border-radius: 16px;
+}
+.lightbox[open] .lightbox__slide img { animation: modal-in .45s cubic-bezier(.16, 1, .3, 1) both; }
+/* Opened from the gallery: the photo flies in (script.js), so the dialog itself doesn't fade; the
+   backdrop still does, and the caption and controls fade in as the photo lands */
+.lightbox__fly { position: fixed; z-index: 2; overflow: hidden; pointer-events: none; }
+.lightbox__fly img { position: absolute; max-width: none; object-fit: cover; }
+.lightbox.is-zooming[open], .lightbox.is-zooming[open] .lightbox__slide img { animation: none; }
+.lightbox.is-zooming[open] :is(.lightbox__caption, .lightbox__count, .lightbox__btn, .lightbox__close) { animation: appear .35s ease .3s backwards; }
+@keyframes appear { from { opacity: 0; } } /* to each element's own opacity (a disabled arrow stays dimmed) */
+.lightbox.is-closing :is(.lightbox__caption, .lightbox__count, .lightbox__btn, .lightbox__close) { opacity: 0; transition: opacity .2s ease; }
+.lightbox__caption { display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: 520px; text-align: center; }
+.lightbox__caption .overline { color: var(--grey-300); letter-spacing: .08em; }
+.lightbox__caption .body2 { color: #fff; }
+.lightbox__count { position: absolute; top: 28px; left: 32px; color: var(--grey-300); letter-spacing: .08em; }
+.lightbox__close {
+  position: absolute; top: 20px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255, 255, 255, .12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E") center / 24px 24px no-repeat;
+  transition: background-color .2s ease;
+}
+.lightbox__btn {
+  position: absolute; top: 50%; width: 56px; height: 56px; margin-top: -28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .12); transition: background-color .2s ease, opacity .2s ease;
+}
+.lightbox__btn::before {
+  content: ""; width: 22px; height: 22px; background: #fff;
+  -webkit-mask: var(--icon) center / 22px 22px no-repeat; mask: var(--icon) center / 22px 22px no-repeat;
+}
+.lightbox__btn--prev { left: 24px; --icon: url("assets/stepper/arrow-back.svg"); }
+.lightbox__btn--next { right: 24px; --icon: url("assets/stepper/arrow-forward.svg"); }
+.lightbox__btn:hover, .lightbox__close:hover { background-color: rgba(255, 255, 255, .24); }
+.lightbox__btn:disabled { opacity: .25; cursor: default; }
+.lightbox__btn:focus-visible, .lightbox__close:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+@media (max-width: 640px) {
+  .lightbox__slide { padding: 72px 16px 88px; }
+  .lightbox__btn { top: auto; bottom: 20px; margin-top: 0; width: 48px; height: 48px; }
+  .lightbox__btn--prev { left: calc(50% - 64px); }
+  .lightbox__btn--next { right: calc(50% - 64px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lightbox[open], .lightbox[open]::backdrop, .lightbox[open] .lightbox__slide img, .lightbox[open] * { animation: none; }
+}
+
+/* =========================================================
+   Consumer reviews: cards fade in one at a time, left to right, when the row scrolls in.
+   Opacity only, no movement. Same pacing as the gallery: 1.2s fade, 300ms apart.
+   ========================================================= */
+.review-card:nth-child(1) { --c: 0; }
+.review-card:nth-child(2) { --c: 1; }
+.review-card:nth-child(3) { --c: 2; }
+.js .review-card { transition: opacity 1.2s ease calc(var(--c) * 300ms); }
+.js .reviews:not(.is-in) .review-card { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reviews:not(.is-in) .review-card { opacity: 1; }
+}
+
+/* Review stepper sits closer to the cards than the product carousel's */
+.reviews .stepper { margin-top: 16px; }
+.reviews .stepper[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .reviews__viewport { scroll-behavior: auto; } }
+
+/* =========================================================
+   Featured headliners: the whole section fades in at once when it scrolls in (plays once).
+   ========================================================= */
+.js .headliners { transition: opacity 1.2s ease; }
+.js .headliners-wrap:not(.is-in) .headliners { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .js .headliners-wrap:not(.is-in) .headliners { opacity: 1; }
+}
+
+/* Product variants (Power series chips, Mini/Rock color swatches): the card's image crossfades to the choice */
+[data-model-media] { position: relative; }
+[data-model-media] > :is(img, video) { transition: opacity .45s ease; }
+[data-model-media] > .is-incoming { position: absolute; inset: 0; opacity: 0; }
+[data-model-media] > .is-incoming.is-shown { opacity: 1; }
+.series__chip { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
+.series__chip[aria-checked="false"]:hover { background: #f2f2f2; }
+
+/* =========================================================
+   AI Karaoke breaker and Auracast: each fades in every time it comes into view and out when it leaves
+   (script.js toggles .is-in). The Auracast band's cream stays put; only its content fades. Opacity only.
+   ========================================================= */
+.js :is(.karaoke-breaker, .auracast) { transition: opacity .8s ease; } /* leaving */
+.js :is(.karaoke-breaker, .auracast).is-in { transition: opacity 1.2s ease; } /* entering */
+.js :is(.karaoke-breaker, .auracast):not(.is-in) { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .js :is(.karaoke-breaker, .auracast):not(.is-in) { opacity: 1; }
+}
+
+/* =========================================================
+   FYI RAiDiO
+   - The whole section fades in as one block when it comes into view and out when it leaves, in either
+     direction (script.js toggles .is-in). Opacity only.
+   - <=1024px: cards sit in one swipeable row with the same stepper as the reviews.
+   ========================================================= */
+.js .radio { transition: opacity 1s ease; }
+.js .radio:not(.is-in) { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .js .radio:not(.is-in) { opacity: 1; }
+}
+
+.radio .stepper { margin-top: 24px; }
+.radio .stepper[hidden] { display: none; }
+@media (max-width: 1024px) {
+  .radio { --rd-pad: 32px; }
+  .radio__viewport {
+    margin: 0 calc(var(--rd-pad) * -1); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+    scroll-snap-type: x mandatory; scroll-padding: 0 var(--rd-pad); scroll-behavior: smooth;
+  }
+  .radio__viewport::-webkit-scrollbar { display: none; }
+  .radio__grid { display: flex; gap: 24px; width: max-content; min-width: 100%; padding: 0 var(--rd-pad); }
+  .radio-card { flex: 0 0 min(320px, 78vw); scroll-snap-align: start; }
+  .radio-card__media { width: 100%; }
+}
+@media (max-width: 640px) { .radio { --rd-pad: 16px; } }
+@media (prefers-reduced-motion: reduce) { .radio__viewport { scroll-behavior: auto; } }
+
+/* =========================================================
+   FAQs
+   - Entrance: "FAQs" fades in, then the questions one at a time (120ms apart, soft curve).
+     Replays on each pass down (script.js); the shared exit fade covers leaving and returning.
+   - Hover (mouse only): the question row's card lightens to show it's clickable.
+   - Open/close is animated in script.js; the chevron rotates in step.
+   ========================================================= */
+.accordion:nth-child(1) { --fi: 0; } .accordion:nth-child(2) { --fi: 1; } .accordion:nth-child(3) { --fi: 2; }
+.accordion:nth-child(4) { --fi: 3; } .accordion:nth-child(5) { --fi: 4; } .accordion:nth-child(6) { --fi: 5; }
+.js .faqs > h2, .js .accordion { transition: opacity .8s ease, background-color .25s ease; }
+.js .faqs.is-in .accordion { transition: opacity .9s cubic-bezier(.45, 0, .25, 1) calc(.25s + var(--fi, 0) * 120ms), background-color .25s ease; }
+.js .faqs:not(.is-in) > h2, .js .faqs:not(.is-in) .accordion { opacity: 0; transition-duration: 0s; }
+@media (hover: hover) and (pointer: fine) {
+  .accordion:has(> .accordion__summary:hover) { background-color: #242424; }
+}
+/* Keyboard focus: same lightened card as hover instead of the global red outline */
+.accordion__summary:focus-visible { outline: none; }
+.accordion:has(> .accordion__summary:focus-visible) { background-color: #242424; }
+@media (prefers-reduced-motion: reduce) {
+  .js .faqs:not(.is-in) > h2, .js .faqs:not(.is-in) .accordion { opacity: 1; }
+}
+
+/* Sign-up entrance: the whole card fades in each time the section is reached scrolling down (script.js) */
+.js .signup__card { transition: opacity .9s ease; }
+.js .signup:not(.is-in) .signup__card { opacity: 0; transition-duration: 0s; }
+@media (prefers-reduced-motion: reduce) {
+  .js .signup:not(.is-in) .signup__card { opacity: 1; }
+  .signup__spinner { animation-duration: 2s; }
+}
